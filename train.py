@@ -6,7 +6,6 @@ from torch.utils.data import DataLoader, Dataset
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
-
 device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
 
 
@@ -22,7 +21,6 @@ class PhishingDataset(Dataset):
         self.df['num_email_addresses_norm'] = scaler.fit_transform(self.df[['num_email_addresses']])
         self.df['num_spelling_errors_norm'] = scaler.fit_transform(self.df[['num_spelling_errors']])
         self.df['num_urgent_keywords_norm'] = scaler.fit_transform(self.df[['num_urgent_keywords']])
-
 
     def __len__(self):
         return len(self.df)
@@ -62,7 +60,7 @@ class NeuralNet(nn.Module):
 if __name__ == '__main__':
     model = NeuralNet()
     dataset = PhishingDataset('train.csv')
-    dataloader = DataLoader(batch_size=10, dataset=dataset, shuffle=True)
+    dataloader = DataLoader(batch_size=1, dataset=dataset, shuffle=True)
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=0.0001)
     epochs = 30

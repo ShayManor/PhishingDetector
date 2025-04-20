@@ -1,12 +1,12 @@
 import random
 
-with open('email_phishing_data.csv', 'r') as f:
+with open('email_phishing_data2.csv', 'r') as f:
     lines = f.readlines()
 res = []
 for line in lines:
-    if line.split(',')[-1] == '1':
+    if line.split(',')[8].count('1') != 0:
         res.append(line)
-    elif random.random() <= 0.07:
+    elif random.random() <= 0.015:
         res.append(line)
 with open('email_phishing_data.csv', 'w') as f:
     f.writelines(res)
